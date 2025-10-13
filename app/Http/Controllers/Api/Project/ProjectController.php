@@ -57,6 +57,7 @@ class ProjectController extends Controller
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                "message" => "projet non trouvé",
                 $th->getMessage(),
             ], 400);
         }
@@ -81,7 +82,8 @@ class ProjectController extends Controller
                 "description" => "required|string|min:4",
                 "status" => "required|string",
             ]);
-            $project = Project::findOrFail($id)->update($data);
+
+            $project  = Project::findOrFail($id)->update($data);
             return response()->json([
                 'message' => 'Projet modifié avec succès',
                 'data' => $project
