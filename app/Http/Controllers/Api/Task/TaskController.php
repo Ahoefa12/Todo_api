@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Api\Project;
+namespace App\Http\Controllers\Api\Task;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Project::all();
+        return Task::all();
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {}
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,14 +31,16 @@ class ProjectController extends Controller
     {
         try {
             $data = $request->validate([
+                "project_id" => "nullable",
                 "name" => "required|string|min:4",
                 "description" => "required|string|min:4",
                 "status" => "required|string",
+                "deadline" => "required"
             ]);
-            $project = Project::create($data);
+            $task = Task::create($data);
             return response()->json([
-                'message' => 'Projet créé avec succès',
-                'data' => $project
+                'message' => 'tâche créé avec succès',
+                'data' => $task
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -50,14 +55,14 @@ class ProjectController extends Controller
     public function show(string $id)
     {
         try {
-            $project = Project::findOrFail($id);
+            $task = Task::findOrFail($id);
             return response()->json([
-                'data' => $project
+                'data' => $task
 
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                "message" => "projet non trouvé",
+                "message" => "tâche non trouvé",
                 $th->getMessage(),
             ], 400);
         }
@@ -76,17 +81,19 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        try {
+         try {
             $data = $request->validate([
+                "project_id" => "nullable",
                 "name" => "required|string|min:4",
                 "description" => "required|string|min:4",
                 "status" => "required|string",
+                "deadline" => "required"
             ]);
 
-            $project  = Project::findOrFail($id)->update($data);
+            $task  = Task::findOrFail($id)->update($data);
             return response()->json([
-                'message' => 'Projet modifié avec succès',
-                'data' => $project
+                'message' => 'tâche modifié avec succès',
+                'data' => $task
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -100,10 +107,10 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            Project::findOrFail($id)->delete();
+         try {
+            Task::findOrFail($id)->delete();
             return response()->json([
-                'message' => 'Projet supprimé  avec succès',
+                'message' => 'tâche supprimé  avec succès',
 
             ], 200);
         } catch (\Throwable $th) {
