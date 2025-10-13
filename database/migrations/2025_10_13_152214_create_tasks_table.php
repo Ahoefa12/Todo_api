@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->enum('status',['en_cours','effectué','non_effectué']);
+            $table->string('deadline');
             $table->timestamps();
         });
     }
