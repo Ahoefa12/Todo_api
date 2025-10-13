@@ -49,7 +49,17 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $project = Project::findOrFail($id);
+            return response()->json([
+                'data' => $project
+
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                $th->getMessage(),
+            ], 400);
+        }
     }
 
     /**
@@ -88,6 +98,18 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Project::findOrFail($id)->delete();
+            return response()->json([
+                'message' => 'Projet supprimé  avec succès',
+
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Erreur lors de la suppression' . $th->getMessage(),
+            ], 400);
+        }
+
+        return response()->json(['Message supprimé avec succès']);
     }
 }
