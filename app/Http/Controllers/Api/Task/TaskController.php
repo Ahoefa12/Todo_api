@@ -39,7 +39,7 @@ class TaskController extends Controller
             ]);
             $task = Task::create($data);
             return response()->json([
-                'message' => 'tâche créé avec succès',
+                'message' => 'Tâche créée avec succès',
                 'data' => $task
             ], 200);
         } catch (\Throwable $th) {
@@ -62,7 +62,7 @@ class TaskController extends Controller
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                "message" => "tâche non trouvé",
+                "message" => "Tâche non trouvée",
                 $th->getMessage(),
             ], 400);
         }
@@ -92,7 +92,7 @@ class TaskController extends Controller
 
             $task  = Task::findOrFail($id)->update($data);
             return response()->json([
-                'message' => 'tâche modifié avec succès',
+                'message' => 'Tâche modifiée avec succès',
                 'data' => $task
             ], 200);
         } catch (\Throwable $th) {
@@ -110,7 +110,7 @@ class TaskController extends Controller
          try {
             Task::findOrFail($id)->delete();
             return response()->json([
-                'message' => 'tâche supprimé  avec succès',
+                'message' => 'Tâche supprimée avec succès',
 
             ], 200);
         } catch (\Throwable $th) {
