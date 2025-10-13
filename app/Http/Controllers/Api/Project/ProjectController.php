@@ -19,10 +19,7 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -30,20 +27,20 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->validate ([
+            $data = $request->validate([
                 "name" => "required|string|min:4",
                 "description" => "required|string|min:4",
                 "status" => "required|string",
             ]);
-            $project = Project::create($data );
+            $project = Project::create($data);
             return response()->json([
-                'message'=> 'Projet créé avec succes',
-                'data'=> $project
-            ],200);
+                'message' => 'Projet créé avec succès',
+                'data' => $project
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                'message'=> 'Erreur lors de la création' .$th->getMessage(),    
-            ],400);
+                'message' => 'Erreur lors de la création' . $th->getMessage(),
+            ], 400);
         }
     }
 
@@ -68,7 +65,22 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $data = $request->validate([
+                "name" => "required|string|min:4",
+                "description" => "required|string|min:4",
+                "status" => "required|string",
+            ]);
+            $project = Project::findOrFail($id)->update($data);
+            return response()->json([
+                'message' => 'Projet modifié avec succès',
+                'data' => $project
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Erreur lors de la modification' . $th->getMessage(),
+            ], 400);
+        }
     }
 
     /**
