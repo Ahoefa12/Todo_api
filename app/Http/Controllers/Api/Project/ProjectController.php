@@ -50,7 +50,7 @@ class ProjectController extends Controller
     public function show(string $id)
     {
         try {
-            $project = Project::findOrFail($id);
+            $project = Project::with('Tasks')->findOrFail($id);
             return response()->json([
                 'data' => $project
 

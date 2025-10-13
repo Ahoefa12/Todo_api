@@ -31,7 +31,7 @@ class TaskController extends Controller
     {
         try {
             $data = $request->validate([
-                "project_id" => "nullable",
+                "project_id" => "required|exists:projects,id",
                 "name" => "required|string|min:4",
                 "description" => "required|string|min:4",
                 "status" => "required|string",
@@ -83,7 +83,7 @@ class TaskController extends Controller
     {
          try {
             $data = $request->validate([
-                "project_id" => "nullable",
+                "project_id" => "required|exists:projects,id",
                 "name" => "required|string|min:4",
                 "description" => "required|string|min:4",
                 "status" => "required|string",
