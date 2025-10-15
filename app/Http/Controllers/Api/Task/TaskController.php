@@ -35,7 +35,7 @@ class TaskController extends Controller
                 "name" => "required|string|min:4",
                 "description" => "required|string|min:4",
                 "status" => "required|string",
-                "deadline" => "required"
+                "deadline" => "required|date"
             ]);
             $task = Task::create($data);
             return response()->json([
@@ -87,7 +87,7 @@ class TaskController extends Controller
                 "name" => "required|string|min:4",
                 "description" => "required|string|min:4",
                 "status" => "required|string",
-                "deadline" => "required"
+                "deadline" => "required|date"
             ]);
 
             $task  = Task::findOrFail($id)->update($data);
